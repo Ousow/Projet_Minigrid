@@ -1,0 +1,14 @@
+# Environnement virtuel
+.venv/
+
+# Fichiers Python compilés
+__pycache__/
+*.pyc
+
+# Modèles entraînés
+*.pth
+*.pkl
+
+
+# Jupyter checkpoints
+.ipynb_checkpoints/

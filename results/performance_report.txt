@@ -1,0 +1,30 @@
+======================================================================
+RAPPORT DE PERFORMANCE - APPRENTISSAGE PAR RENFORCEMENT
+======================================================================
+
+Q-LEARNING
+----------------------------------------------------------------------
+Nombre d'épisodes: 1000
+Récompense moyenne (premiers 100 ép.): 0.281
+Récompense moyenne (derniers 100 ép.): 0.961
+Récompense maximale: 0.961
+Récompense minimale: 0.000
+
+Étapes moyennes (premiers 100 ép.): 191.1
+Étapes moyennes (derniers 100 ép.): 11.2
+
+DEEP Q-NETWORK (DQN)
+----------------------------------------------------------------------
+Nombre d'épisodes: 1000
+Récompense moyenne (premiers 100 ép.): 0.110
+Récompense moyenne (derniers 100 ép.): 0.930
+Récompense maximale: 0.961
+Récompense minimale: 0.000
+
+Étapes moyennes (premiers 100 ép.): 231.6
+Étapes moyennes (derniers 100 ép.): 19.9
+
+COMPARAISON
+----------------------------------------------------------------------
+Q-Learning obtient de meilleures récompenses finales
+Différence: +0.031
