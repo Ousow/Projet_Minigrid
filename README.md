@@ -131,9 +131,7 @@ python evaluation_&_analyse.py
 Génère:
 - Courbes d'apprentissage
 - Comparaison des performances
-- Rapport détaillé
-
-**Durée:** ~2 minutes
+- Rapport détai
 
 ## Algorithmes implémentés
 
