@@ -1,0 +1,10 @@
+{
+  "epoch": 24,
+  "best_score": 0.0,
+  "metrics": {
+    "eval_reward": 0.0,
+    "success_rate": 0.0,
+    "train_reward": 0.19140625
+  },
+  "timestamp": "2026-02-12T11:33:44.142020"
+}
