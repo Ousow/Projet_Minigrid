@@ -1,9 +1,104 @@
 """
+TP Apprentissage par Renforcement
+Avec DQN CNN + Callbacks
+"""
+
+import gymnasium as gym
+import minigrid
+import subprocess
+import sys
+from pathlib import Path
+
+def print_section(title):
+    print(f"\n{'='*70}")
+    print(f"{title:^70}")
+    print(f"{'='*70}\n")
+
+def run_dqn_cnn():
+    """Lance TON DQN avec CNN et callbacks"""
+    print_section(" DQN AMÉLIORÉ - CNN + CALLBACKS")
+    print("Lancement de ton agent avec:")
+    print("   CNN profond pour perception spatiale")
+    print("   TensorBoard pour monitoring")
+    print("   ModelCheckpoint pour sauvegarde auto")
+    print("   EarlyStopping pour arrêt intelligent")
+    print("\n" + "-"*50)
+    
+    subprocess.run([sys.executable, "dqn_cnn.py"])
+
+def run_comparison():
+    """Lance le benchmark comparatif"""
+    print_section(" BENCHMARK COMPARATIF")
+    print("Comparaison des performances:")
+    print("  - DQN baseline ")
+    print("  - DQN CNN  ")
+    print("\n" + "-"*50)
+    
+    subprocess.run([sys.executable, "comparison_benchmark.py"])
+
+def main():
+    print("""
+
+     TP APPRENTISSAGE PAR RENFORCEMENT - MINIGRID                   
+
+    """)
+    
+    while True:
+        print("\n MENU PRINCIPAL:")
+        print("  ──────────────────────────────")
+        print("    1. Lancer LE DQN CNN (callbacks)")
+        print("    2. Lancer benchmark comparatif")
+        print("    3. Lancer TensorBoard")
+        print("    4. Voir structure projet")
+        print("    5. Quitter")
+        print("  ──────────────────────────────")
+        
+        choice = input("\n Ton choix (1-5): ").strip()
+        
+        if choice == '1':
+            run_dqn_cnn()
+        elif choice == '2':
+            run_comparison()
+        elif choice == '3':
+            print("\n Lancement TensorBoard...")
+            print("   URL: http://localhost:6006")
+            print("   Appuie sur CTRL+C pour arrêter\n")
+            subprocess.run(["tensorboard", "--logdir=runs"])
+        elif choice == '4':
+            print_section("STRUCTURE DU PROJET")
+            print("""
+ Projet_Minigrid/
+├──  dqn_cnn.py              
+├──  dqn_agent.py                  
+├──  comparison_benchmark.py 
+├──  main_ameliore.py        
+│
+├──  callbacks/             
+│   ├── tensorboard_callback.py
+│   ├── model_checkpoint.py
+│   └── early_stopping.py
+│
+├──  runs/                   
+├──  models/                 
+└──  results/                
+            """)
+        elif choice == '5':
+            print("\n Close !\n")
+            break
+        else:
+            print("\n Choix invalide. Choisis 1-5.")
+
+if __name__ == "__main__":
+    main()
+
+
+
+"""
 TP Apprentissage par Renforcement avec MiniGrid - Script Principal
 
 Ce script orchestre l'ensemble du TP:
 1. Exploration de MiniGrid
-2. Entraînement des agents (Q-Learning et DQN)
+2. Entraînement des agents (DQN, et DQN+CNN)
 3. Évaluation et analyse des résultats
 4. Génération du rapport
 """
@@ -44,7 +139,6 @@ def run_qlearning_training():
     print("  - Table Q tabulaire")
     print("  - Exploration epsilon-greedy")
     print("  - Mise à jour par différence temporelle")
-    print("\nDurée estimée: 2-5 minutes")
 
 
 def run_dqn_training():
@@ -57,7 +151,6 @@ def run_dqn_training():
     print("  - Réseau de neurones profond")
     print("  - Replay buffer")
     print("  - Target network")
-    print("\nDurée estimée: 5-10 minutes (CPU) ou 2-3 minutes (GPU)")
 
 
 def run_evaluation():
@@ -102,7 +195,7 @@ def check_dependencies():
         print("  pip install gymnasium minigrid numpy matplotlib torch tqdm")
         return False
     
-    print("\n✓ Toutes les dépendances sont installées!")
+    print("\n Toutes les dépendances sont installées!")
     return True
 
 
@@ -114,8 +207,8 @@ def show_project_structure():
 tp_minigrid/
 │
 ├── exploration_minigrid.py    # Découverte de l'environnement
-├── qlearning_agent.py         # Agent Q-Learning
 ├── dqn_agent.py               # Agent Deep Q-Network
+├── dqn_cnn.py                 # Agent Deep Q-Network + CNN + Callbacks
 ├── evaluation_&_analyse.py     # Évaluation et visualisation
 ├── main.py                      # Ce script
 ├── requirements.txt             # Dépendances
@@ -127,8 +220,8 @@ tp_minigrid/
 │   ├── dqn_loss.png
 │   └── performance_report.txt
 │
-├── qlearning_agent.pkl          # Agent Q-Learning sauvegardé
 ├── dqn_agent.pth                # Agent DQN sauvegardé
+├── dqn_cnn.pth                  # Agent DQN+CNN sauvegardé
 │
 └── rapport_tp.md                # Rapport final
     """
@@ -146,14 +239,14 @@ def show_workflow():
   → Comprendre l'environnement MiniGrid
   → Noter les observations clés pour le rapport
 
-ÉTAPE 2: IMPLÉMENTATION Q-LEARNING 
-  → Exécuter: python qlearning_agent.py
-  → Observer l'apprentissage
-  → Analyser les résultats
-  → Expérimenter avec les hyperparamètres
-
-ÉTAPE 3: IMPLÉMENTATION DQN 
+ÉTAPE 2: IMPLÉMENTATION DQN 
   → Exécuter: python dqn_agent.py
+  → Comparer avec Q-Learning
+  → Tester différentes architectures
+  → Optimiser les performances
+
+ÉTAPE 3: IMPLÉMENTATION DQN+CNN+CALLBACKS 
+  → Exécuter: python dqn_cnn.py
   → Comparer avec Q-Learning
   → Tester différentes architectures
   → Optimiser les performances

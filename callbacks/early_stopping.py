@@ -34,23 +34,23 @@ class EarlyStopping:
                 self.best_weights = copy.deepcopy(model.state_dict())
             
             if self.verbose:
-                print(f"\n✨ Meilleur score: {self.best_score:.4f} (épisode {self.best_epoch})")
+                print(f"\n Meilleur score: {self.best_score:.4f} (épisode {self.best_epoch})")
         else:
             self.counter += 1
             if self.verbose and self.counter % 10 == 0:
-                print(f"⚠️ Patience: {self.counter}/{self.patience}")
+                print(f" Patience: {self.counter}/{self.patience}")
             
             if self.counter >= self.patience:
                 self.stop_training = True
                 
                 if self.verbose:
-                    print(f"\n🛑 EARLY STOPPING à l'épisode {epoch}")
+                    print(f"\n EARLY STOPPING à l'épisode {epoch}")
                     print(f"   Meilleur score: {self.best_score:.4f}")
                     print(f"   Meilleur épisode: {self.best_epoch}")
                 
                 if self.restore_best_weights and self.best_weights is not None and model is not None:
                     model.load_state_dict(self.best_weights)
                     if self.verbose:
-                        print(f"   ✅ Meilleurs poids restaurés")
+                        print(f"    Meilleurs poids restaurés")
         
         return self.stop_training

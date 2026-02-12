@@ -1,6 +1,6 @@
 # TP Apprentissage par Renforcement avec MiniGrid
 
-Implémentation complète d'agents d'apprentissage par renforcement (Q-Learning et DQN) pour l'environnement MiniGrid.
+Implémentation complète d'agents d'apprentissage par renforcement (DQN et DQN_CNN) pour l'environnement MiniGrid.
 
 ## Table des matières
 
@@ -14,8 +14,8 @@ Implémentation complète d'agents d'apprentissage par renforcement (Q-Learning 
 ## Description
 
 Ce projet implémente deux algorithmes d'apprentissage par renforcement:
-- **Q-Learning tabulaire**: Approche classique avec table Q
 - **Deep Q-Network (DQN)**: Approche moderne avec réseau de neurones
+- **Deep Q-Network (DQN)**: Approche avec des couches convolutives et utilisation de callbacks
 
 L'objectif est de comparer leurs performances sur l'environnement MiniGrid-Empty-8x8-v0.
 
@@ -55,20 +55,24 @@ tp_minigrid/
 ├── main.py                          # Script principal avec menu
 │
 ├── exploration_minigrid.py        # Partie 1: Exploration
-├── qlearning_agent.py             # Partie 2A: Q-Learning
-├── dqn_agent.py                   # Partie 2B: DQN
-├── evaluation_&_analyse.py         # Partie 3: Évaluation
+├── dqn_agent.py                   # Partie 1B: DQN
+├── dqn_cnn.py                     # Partie 2B: DQN_CNN
+├── visualiser_resultats.py         # Partie 3: Évaluation
 │
 ├── rapport_tp.md                    # Template de rapport
 │
 ├── results/                         # Résultats générés (créé auto)
-│   ├── training_curves.png
-│   ├── evaluation_comparison.png
-│   ├── reward_distribution.png
-│   └── performance_report.txt
+│   ├── courbes_apprentissage_dqn.png
+│   ├── courbes_apprentissage_dqn.png
+│   ├── dqn_loss.png
+|   ├── performance_report.txt
+|   ├── training_progress.png
+│   └── resultats_dqn_minigrid_final.png
 │
-├── qlearning_agent.pkl             # Agent Q-Learning sauvegardé
-└── dqn_agent.pth                   # Agent DQN sauvegardé
+├── benchmark_results
+|   ├── comparaison_dqn.png      
+|     
+└── dqn_agent.pth                  
 ```
 
 ##  Utilisation
@@ -98,19 +102,7 @@ Cette étape vous permet de:
 - Analyser le système de récompenses
 
 
-#### Partie 2A: Entraînement Q-Learning
-
-```bash
-python qlearning_agent.py
-```
-
-Entraîne un agent Q-Learning avec:
-- 1000 épisodes d'entraînement
-- Évaluation sur 100 épisodes
-- Sauvegarde automatique
-
-
-#### Partie 2B: Entraînement DQN
+#### Partie 2A: Entraînement Deep Q-Learning
 
 ```bash
 python dqn_agent.py
@@ -119,38 +111,32 @@ python dqn_agent.py
 Entraîne un agent DQN avec:
 - Réseau de neurones à 2 couches cachées
 - Replay buffer et target network
+- 1000 épisodes d'entraînement
+- Évaluation sur 100 épisodes
 - Sauvegarde automatique
 
 
-#### Partie 3: Évaluation et analyse
+#### Partie 2B: Entraînement DQN+CNN
 
 ```bash
-python evaluation_&_analyse.py
+python dqn_cnn.py
 ```
 
-Génère:
-- Courbes d'apprentissage
-- Comparaison des performances
-- Rapport détai
+Entraîne un agent DQN avec:
+- Intégration de couches de convolution
+- Utilisation des callbacks
+- Réseau de neurones à 2 couches cachées
+- Replay buffer et target network
+
+
+#### Partie 3: Visualisation des résultats
+
+```bash
+python visualiser_resultats.py
+```
+
 
 ## Algorithmes implémentés
-
-### Q-Learning
-
-**Caractéristiques:**
-- Algorithme de différence temporelle
-- Table Q pour stocker les valeurs état-action
-- Politique epsilon-greedy
-- Mise à jour: Q(s,a) ← Q(s,a) + α[r + γ max Q(s',a') - Q(s,a)]
-
-**Hyperparamètres par défaut:**
-```python
-learning_rate = 0.1
-gamma = 0.99
-epsilon_start = 1.0
-epsilon_end = 0.01
-epsilon_decay = 0.995
-```
 
 ### Deep Q-Network (DQN)
 
@@ -176,23 +162,26 @@ buffer_capacity = 10000
 target_update_freq = 10
 ```
 
-### Personnaliser les visualisations
+### DQN_CNN
 
-Éditez `evaluation_&_analyse.py` pour modifier:
-- Les couleurs des graphiques
-- Les métriques affichées
-- Le format du rapport
+**Caractéristiques:**
+- Approximation par Réseau de Neurones  
+- Experience Replay 
+- Target Network 
+- Politique epsilon-greedy 
+- Mise à jour par Descente de Gradient 
+    Loss = MSE(r + \gamma \max_{a'} Q_{target}(s', a') - Q_{policy}(s, a))$$
 
-##  Compléter le rapport
-
-1. Exécutez tous les scripts pour générer les résultats
-2. Ouvrez `rapport_tp.md`
-3. Complétez chaque section avec:
-   - Vos observations
-   - Les valeurs obtenues
-   - Votre analyse critique
-4. Ajoutez les images dans le dossier `results/`
-5. Exportez en PDF si nécessaire
+**Hyperparamètres utilisés :**
+```python
+learning_rate  = 0.0005   
+gamma          = 0.99     
+epsilon_start  = 1.0      
+epsilon_end    = 0.05     
+epsilon_decay  = 0.997    
+batch_size     = 32       
+target_update  = 500 
+```
 
 ### Conversion en PDF
 
@@ -233,18 +222,6 @@ pandoc rapport_tp.md -o rapport_tp.pdf
 pip install --upgrade gymnasium minigrid numpy matplotlib torch tqdm
 ```
 
-### Comment sauvegarder/charger un agent?
-
-Les agents sont sauvegardés automatiquement. Pour charger:
-
-```python
-# Q-Learning
-agent = QLearningAgent(...)
-agent.load('qlearning_agent.pkl')
-
-# DQN
-agent = DQNAgent(...)
-agent.load('dqn_agent.pth')
 ```
 
 ##  Ressources supplémentaires

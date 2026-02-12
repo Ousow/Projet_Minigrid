@@ -1,6 +1,6 @@
 """
-VISUALISATION DES RÉSULTATS - SANS TENSORBOARD !
-📊 Graphiques automatiques à partir des callbacks
+VISUALISATION DES RÉSULTATS 
+ Graphiques automatiques à partir des callbacks
 """
 
 import json
@@ -12,28 +12,28 @@ def visualiser_tout():
     """Génère TOUS les graphiques des callbacks"""
     
     print("\n" + "="*60)
-    print("📊 VISUALISATION DES RÉSULTATS D'ENTRAÎNEMENT")
+    print(" VISUALISATION DES RÉSULTATS D'ENTRAÎNEMENT")
     print("="*60)
     
     # Chercher les dossiers runs
     runs_dir = Path("runs")
     if not runs_dir.exists():
-        print("❌ Aucun dossier 'runs' trouvé !")
+        print(" Aucun dossier 'runs' trouvé !")
         return
     
     # Trouver la dernière run
     runs = list(runs_dir.glob("dqn_*"))
     if not runs:
-        print("❌ Aucune run trouvée dans runs/")
+        print(" Aucune run trouvée dans runs/")
         return
     
     latest_run = sorted(runs)[-1]
-    print(f"\n📁 Dernière run trouvée : {latest_run.name}")
+    print(f"\n Dernière run trouvée : {latest_run.name}")
     
     # Charger les métriques
     metrics_file = latest_run / "metrics.json"
     if not metrics_file.exists():
-        print("❌ Fichier metrics.json non trouvé !")
+        print(" Fichier metrics.json non trouvé !")
         return
     
     with open(metrics_file, 'r') as f:
@@ -58,7 +58,7 @@ def visualiser_tout():
     
     ax.set_xlabel('Épisode')
     ax.set_ylabel('Récompense')
-    ax.set_title('🎯 Récompenses par épisode', fontweight='bold')
+    ax.set_title(' Récompenses par épisode', fontweight='bold')
     ax.legend()
     ax.grid(True, alpha=0.3)
     
@@ -76,7 +76,7 @@ def visualiser_tout():
         ax.plot(range(1, len(epsilons)+1), epsilons, 'g-', linewidth=2)
         ax.set_xlabel('Épisode')
         ax.set_ylabel('Epsilon')
-        ax.set_title('🔄 Exploration (Epsilon)', fontweight='bold')
+        ax.set_title(' Exploration (Epsilon)', fontweight='bold')
         ax.grid(True, alpha=0.3)
         ax.set_ylim([0, 1.1])
     
@@ -94,7 +94,7 @@ def visualiser_tout():
         
         ax.set_xlabel('Update step')
         ax.set_ylabel('Loss')
-        ax.set_title('📉 Loss (MSE)', fontweight='bold')
+        ax.set_title(' Loss (MSE)', fontweight='bold')
         ax.legend()
         ax.grid(True, alpha=0.3)
         ax.set_yscale('log')
@@ -118,7 +118,7 @@ def visualiser_tout():
         
         bars = ax.bar(categories, values, color=colors, edgecolor='black', linewidth=2)
         ax.set_ylim([0, 110])
-        ax.set_title('🏆 Performance finale', fontweight='bold')
+        ax.set_title(' Performance finale', fontweight='bold')
         ax.set_ylabel('Valeur')
         
         # Ajouter les valeurs sur les barres
@@ -129,35 +129,35 @@ def visualiser_tout():
                    ha='center', va='bottom', fontweight='bold', fontsize=12)
     else:
         ax.text(0.5, 0.5, "Modèle non trouvé", ha='center', va='center', transform=ax.transAxes)
-        ax.set_title('⚠️ Performance non disponible', fontweight='bold')
+        ax.set_title(' Performance non disponible', fontweight='bold')
     
     plt.tight_layout()
     
     # Sauvegarder le graphique
     output_file = f"resultats_{latest_run.name}.png"
     plt.savefig(output_file, dpi=150, bbox_inches='tight')
-    print(f"\n✅ Graphique sauvegardé : {output_file}")
+    print(f"\n Graphique sauvegardé : {output_file}")
     
     # Afficher
     plt.show()
     
     # Afficher un résumé texte
     print("\n" + "="*60)
-    print("📈 RÉSUMÉ DES PERFORMANCES")
+    print(" RÉSUMÉ DES PERFORMANCES")
     print("="*60)
-    print(f"\n🎯 Récompense maximale : {max(rewards):.3f}")
-    print(f"📉 Récompense moyenne (fin) : {np.mean(rewards[-100:]):.3f}")
-    print(f"🔄 Epsilon final : {epsilons[-1] if epsilons else 0:.3f}")
+    print(f"\n Récompense maximale : {max(rewards):.3f}")
+    print(f" Récompense moyenne (fin) : {np.mean(rewards[-100:]):.3f}")
+    print(f" Epsilon final : {epsilons[-1] if epsilons else 0:.3f}")
     
     if best_model_path.exists():
         with open(best_model_path, 'r') as f:
             best_data = json.load(f)
-        print(f"\n🏆 MEILLEUR MODÈLE (épisode {best_data.get('epoch', '?')})")
+        print(f"\n MEILLEUR MODÈLE (épisode {best_data.get('epoch', '?')})")
         print(f"   - Reward évaluation : {best_data.get('metrics', {}).get('eval_reward', 0):.3f}")
         print(f"   - Taux de succès : {best_data.get('metrics', {}).get('success_rate', 0)*100:.1f}%")
     
     print("\n" + "="*60)
-    print("✅ VISUALISATION TERMINÉE !")
+    print(" VISUALISATION TERMINÉE !")
     print("="*60)
 
 def visualiser_comparaison():
@@ -187,7 +187,7 @@ def visualiser_comparaison():
     
     plt.xlabel('Épisode')
     plt.ylabel('Récompense (moyenne mobile)')
-    plt.title('📊 Comparaison des différentes runs')
+    plt.title(' Comparaison des différentes runs')
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.savefig('comparaison_runs.png', dpi=150)
@@ -195,7 +195,7 @@ def visualiser_comparaison():
 
 if __name__ == "__main__":
     print("\n" + "="*60)
-    print("🔍 ANALYSE DES CALLBACKS DQN MINIGRID")
+    print(" ANALYSE DES CALLBACKS DQN MINIGRID")
     print("="*60)
     
     visualiser_tout()

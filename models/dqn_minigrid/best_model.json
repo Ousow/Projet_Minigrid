@@ -1,9 +1,9 @@
 {
-  "epoch": 38643,
-  "best_score": 0.954296875,
+  "epoch": 449,
+  "best_score": 0.9578124999999998,
   "metrics": {
-    "eval_reward": 0.954296875,
+    "eval_reward": 0.9578124999999998,
     "success_rate": 1.0
   },
-  "timestamp": "2026-02-12T14:24:21.487657"
+  "timestamp": "2026-02-12T21:59:18.723700"
 }

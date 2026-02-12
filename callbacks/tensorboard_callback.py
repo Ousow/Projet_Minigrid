@@ -28,7 +28,7 @@ class TrainingCallback:
             'eval_success_rates': []
         }
         
-        print(f"\n🎯 TensorBoard: {self.log_dir / experiment_name}")
+        print(f"\n TensorBoard: {self.log_dir / experiment_name}")
         print(f"   tensorboard --logdir={self.log_dir}\n")
     
     def on_episode_end(self, episode, reward, epsilon=None, loss=None):

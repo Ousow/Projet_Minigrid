@@ -52,7 +52,7 @@ class ModelCheckpoint:
                 }, f, indent=2)
             
             if self.verbose:
-                print(f"\n🏆 Meilleur modèle sauvegardé!")
+                print(f"\n Meilleur modèle sauvegardé!")
                 print(f"   Épisode: {epoch}")
                 print(f"   {self.monitor}: {self.best_score:.4f}")
                 print(f"   Chemin: {self.filepath}")
