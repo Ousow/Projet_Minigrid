@@ -95,7 +95,6 @@ class DQNAgent:
  
     # ------------------------------------------------------
     def preprocess(self, obs):
-        """Inchangé"""
         obs = obs.astype(np.float32)
         if obs.max() > 1:
             obs = obs / obs.max()
@@ -104,7 +103,6 @@ class DQNAgent:
  
     # ------------------------------------------------------
     def select_action(self, state):
-        """Inchangé"""
         if random.random() < self.epsilon:
             return random.choice(self.actions)
  
@@ -116,7 +114,6 @@ class DQNAgent:
  
     # ------------------------------------------------------
     def update(self):
-        """Inchangé"""
         if len(self.memory) < self.batch_size:
             return 0.0
  
@@ -153,7 +150,6 @@ class DQNAgent:
  
     # ------------------------------------------------------
     def train(self, episodes=1000):
-        """Entraînement - VERSION CORRIGÉE"""
        
         for episode in range(episodes):
             self.episode_count = episode  
@@ -199,12 +195,12 @@ class DQNAgent:
                     loss=avg_loss
                 )
  
-            # Évaluation périodique - TOUS LES 50 ÉPISODES
+            # Évaluation périodique 
             if (episode + 1) % 50 == 0:
                 print(f"\n Épisode {episode+1}/{episodes}")
                 print(f"   Train Reward: {total_reward:.3f} | Epsilon: {self.epsilon:.3f}")
                
-                #  CORRECTION : Évaluation avec 20 épisodes
+                #  Évaluation avec 20 épisodes
                 eval_results = self.evaluate(episodes=20)
                
                 # ModelCheckpoint - Sauvegarde si amélioration
@@ -237,7 +233,6 @@ class DQNAgent:
  
     # ------------------------------------------------------
     def evaluate(self, episodes=100):
-        """Évaluation - VERSION CORRIGÉE"""
        
         self.policy_net.eval()
         rewards = []
@@ -268,7 +263,7 @@ class DQNAgent:
         self.last_eval_reward = mean_reward
         self.last_eval_success = success_rate
  
-        print(f"\n===== ÉVALUATION =====")
+        print(f"\n  ÉVALUATION ")
         print(f"   Reward: {mean_reward:.3f} ± {std_reward:.3f}")
         print(f"   Succès: {success_rate*100:.1f}%")
  
