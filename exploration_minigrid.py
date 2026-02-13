@@ -78,7 +78,7 @@ class MiniGridExplorer:
         obs, info = self.env.reset()
         total_reward = 0
         
-        print(f"\n=== Test manuel ({num_steps} étapes) ===")
+        print(f"\n Test manuel ({num_steps} étapes) ")
         
         for step in range(num_steps):
             # Action aléatoire
@@ -107,7 +107,7 @@ class MiniGridExplorer:
         rewards = []
         steps = []
         
-        print(f"\n=== Analyse des récompenses ({num_episodes} épisodes) ===")
+        print(f"\n Analyse des récompenses ({num_episodes} épisodes) ")
         
         for episode in range(num_episodes):
             obs, info = self.env.reset()

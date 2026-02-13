@@ -63,7 +63,7 @@ tp_minigrid/
 │
 ├── results/                         # Résultats générés (créé auto)
 │   ├── courbes_apprentissage_dqn.png
-│   ├── courbes_apprentissage_dqn.png
+│   ├── courbes_apprentissage_dqn_cnn.png
 │   ├── dqn_loss.png
 |   ├── performance_report.txt
 |   ├── training_progress.png
